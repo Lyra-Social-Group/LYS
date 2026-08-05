@@ -15,10 +15,10 @@ export default defineNuxtConfig({
         flowType: 'pkce',
         autoRefreshToken: true,
         persistSession: true,
-        detectSessionInUrl: true
-      },
-      experimental: {
-        passkey: true
+        detectSessionInUrl: true,
+        experimental: {
+          passkey: true
+        }
       }
     }
   },
