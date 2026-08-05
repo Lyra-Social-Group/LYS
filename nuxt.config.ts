@@ -33,6 +33,15 @@ export default defineNuxtConfig({
         { property: 'og:image', content: 'https://lyrasocialgroup.tech/logo.png' }
       ],
       script: [
+        // Google tag (gtag.js)
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-HFENY0PXZZ',
+          async: true
+        },
+        {
+          innerHTML: "window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n  gtag('config', 'G-HFENY0PXZZ');"
+        },
+        // Tidio widget script
         {
           src: '//code.tidio.co/hvvgxetrnk48ocehxey8q1zh0zlxw0rb.js',
           async: true
