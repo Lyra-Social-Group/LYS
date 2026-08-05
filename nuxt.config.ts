@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Lyra Social Group',
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/logo.png' }
+      ],
       meta: [
         { name: 'theme-color', content: '#A033ED' },
         { property: 'og:image', content: 'https://lyrasocialgroup.tech/logo.png' }
