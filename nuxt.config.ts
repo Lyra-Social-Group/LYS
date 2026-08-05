@@ -4,7 +4,13 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   css: ['~/assets/css/main.css'],
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/supabase'
+  ],
+  supabase: {
+    redirect: false
+  },
   app: {
     head: {
       title: 'Lyra Social Group',

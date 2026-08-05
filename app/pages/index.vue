@@ -45,48 +45,6 @@ const toggleFaq = (index) => {
       <p class="text-[#A033ED] font-medium tracking-wide uppercase text-sm">Join the movement now!</p>
     </section>
 
-    <!-- Team Section -->
-    <section id="team" class="max-w-7xl mx-auto px-4 space-y-12">
-      <h2 class="text-3xl font-extrabold text-center text-white">Team</h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Team Member 1: Lyra Foxwood -->
-        <div class="p-8 rounded-2xl bg-[#13131a] lsg-glow-border flex flex-col items-center text-center space-y-6">
-          <div class="w-36 h-36 rounded-full overflow-hidden border-2 border-[#A033ED] shadow-lg shadow-[#A033ED]/20">
-            <img src="https://cdn.discordapp.com/avatars/1068754603933442048/6fae810e6afed0bc956d61e6e814d8e0.webp?size=1024" alt="Lyra Foxwood" class="w-full h-full object-cover" />
-          </div>
-          <div class="space-y-2">
-            <h3 class="text-2xl font-bold text-white">Lyra Foxwood</h3>
-            <p class="text-gray-300 text-sm leading-relaxed">
-              Lyra is a fox on a mission, exploring the internet through VR, music, and beautiful creative chaos. She is a multi-talented furry streamer, content creator, photographer, and musician who spends most of her time in VRChat. Simply put, Lyra is the ultimate driving force behind Lyra Social Group. Without her energy and dedication, the group wouldn't be what it is today.
-            </p>
-          </div>
-          <div class="pt-2">
-            <a href="https://lyrafoxwood.social" target="_blank" class="p-2 rounded-lg bg-[#A033ED]/10 text-[#A033ED] hover:bg-[#A033ED]/20 transition-colors inline-flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Team Member 2: Open Slot / This could be you -->
-        <div class="p-8 rounded-2xl bg-[#13131a] lsg-glow-border flex flex-col items-center text-center space-y-6">
-          <div class="w-36 h-36 rounded-full overflow-hidden border-2 border-dashed border-gray-600 bg-gray-800/50 flex items-center justify-center text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-          </div>
-          <div class="space-y-2">
-            <h3 class="text-2xl font-bold text-white">This could be you</h3>
-            <p class="text-gray-300 text-sm leading-relaxed">
-              We are expanding our team and looking for passionate creators, builders, and innovators to join our community. Lyra Social Group thrives on creativity, connection, and digital innovation. If you want to help shape the future of virtual spaces, content, and entertainment, we want you!
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- FAQ Section -->
     <section id="faq" class="max-w-4xl mx-auto px-4 space-y-8">
       <h2 class="text-3xl font-extrabold text-center text-white">Frequently Asked Questions</h2>

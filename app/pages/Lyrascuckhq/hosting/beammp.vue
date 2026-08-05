@@ -27,13 +27,13 @@ const toggleFaq = (index) => {
       <!-- Top Navigation / Return Link & TOS -->
       <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
         <NuxtLink 
-          to="/lyrascuckhq" 
+          to="/lyrascuckhq/hosting" 
           class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-black border border-gray-800 text-gray-200 hover:text-white hover:bg-gray-900 transition-all text-sm font-semibold shadow"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#A033ED]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          Return to Lyra's Cuck HQ
+          Return to Lyra's Cuck HQ Hosting Services
         </NuxtLink>
 
         <a 
