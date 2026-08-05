@@ -75,7 +75,7 @@
         <div class="flex-grow border-t border-[#A033ED]/20"></div>
       </div>
 
-      <!-- Social SSO Grid -->
+      <!-- Social & Enterprise SSO Grid -->
       <div class="grid grid-cols-2 gap-3">
         <!-- Discord -->
         <button 
@@ -124,19 +124,70 @@
           </svg>
           <span>Twitch</span>
         </button>
+
+        <!-- GitHub -->
+        <button 
+          @click="handleSocialLogin('github')"
+          type="button"
+          class="flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1A102F] border border-[#A033ED]/30 text-sm font-medium text-gray-200 transition-all cursor-pointer"
+        >
+          <svg class="w-4 h-4 fill-current text-gray-100" viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </button>
+
+        <!-- Zoom -->
+        <button 
+          @click="handleSocialLogin('zoom')"
+          type="button"
+          class="flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1A102F] border border-[#A033ED]/30 text-sm font-medium text-gray-200 transition-all cursor-pointer"
+        >
+          <svg class="w-4 h-4 fill-current text-blue-400" viewBox="0 0 24 24">
+            <path d="M4.8 5.4h9.6a2.4 2.4 0 012.4 2.4v8.4a2.4 2.4 0 01-2.4 2.4H4.8A2.4 2.4 0 012.4 16.2V7.8a2.4 2.4 0 012.4-2.4zm13.2 2.8l3.6-2.4v12.4l-3.6-2.4V8.2z"/>
+          </svg>
+          <span>Zoom</span>
+        </button>
       </div>
 
-      <!-- Spotify (Full Width) -->
-      <button 
-        @click="handleSocialLogin('spotify')"
-        type="button"
-        class="w-full flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1A102F] border border-[#A033ED]/30 text-sm font-medium text-gray-200 transition-all cursor-pointer"
-      >
-        <svg class="w-4 h-4 fill-current text-emerald-400" viewBox="0 0 24 24">
-          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.079.24-2.999-1.8-6.719-2.219-11.12-1.2-.419.12-.84-.12-.96-.539-.12-.42.12-.84.54-.96 4.8-1.14 8.94-.66 12.36 1.56.36.24.48.72.26 1.08zm1.44-3.84c-.36.54-1.08.72-1.62.36-3.42-2.1-8.64-2.7-12.66-1.44-.6.18-1.2-.18-1.38-.78-.18-.6.18-1.2.78-1.38 4.62-1.44 10.38-.78 14.46 1.62.54.36.72 1.08.36 1.62zm.12-4.02C13.56 7.2 7.86 7.02 4.26 8.1c-.72.24-1.5-.18-1.74-.9-.24-.72.18-1.5.9-1.74 4.32-1.32 10.62-1.14 15.36 1.68.66.36.9 1.2.54 1.86-.36.66-1.2.9-1.86.54z"/>
-        </svg>
-        <span>Spotify</span>
-      </button>
+      <!-- Full Width Stack for WorkOS, Spotify & Web3 -->
+      <div class="space-y-3 pt-1">
+        <!-- WorkOS (Enterprise SSO) -->
+        <button 
+          @click="handleSocialLogin('workos')"
+          type="button"
+          class="w-full flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1A102F] border border-[#A033ED]/30 text-sm font-medium text-gray-200 transition-all cursor-pointer"
+        >
+          <svg class="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+          <span>WorkOS Enterprise SSO</span>
+        </button>
+
+        <!-- Spotify -->
+        <button 
+          @click="handleSocialLogin('spotify')"
+          type="button"
+          class="w-full flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1A102F] border border-[#A033ED]/30 text-sm font-medium text-gray-200 transition-all cursor-pointer"
+        >
+          <svg class="w-4 h-4 fill-current text-emerald-400" viewBox="0 0 24 24">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.079.24-2.999-1.8-6.719-2.219-11.12-1.2-.419.12-.84-.12-.96-.539-.12-.42.12-.84.54-.96 4.8-1.14 8.94-.66 12.36 1.56.36.24.48.72.26 1.08zm1.44-3.84c-.36.54-1.08.72-1.62.36-3.42-2.1-8.64-2.7-12.66-1.44-.6.18-1.2-.18-1.38-.78-.18-.6.18-1.2.78-1.38 4.62-1.44 10.38-.78 14.46 1.62.54.36.72 1.08.36 1.62zm.12-4.02C13.56 7.2 7.86 7.02 4.26 8.1c-.72.24-1.5-.18-1.74-.9-.24-.72.18-1.5.9-1.74 4.32-1.32 10.62-1.14 15.36 1.68.66.36.9 1.2.54 1.86-.36.66-1.2.9-1.86.54z"/>
+          </svg>
+          <span>Spotify</span>
+        </button>
+
+        <!-- Web3 Wallet -->
+        <button 
+          @click="handleWeb3Register"
+          type="button"
+          class="w-full flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-[#1d1535] hover:bg-[#2A1B4E] border border-[#A033ED]/50 text-purple-200 font-semibold text-sm transition-all cursor-pointer"
+        >
+          <svg class="w-4 h-4 text-[#A033ED]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+          </svg>
+          <span>Sign Up with Web3 Wallet</span>
+        </button>
+      </div>
 
       <!-- Footer Help -->
       <div class="text-center text-xs text-gray-500 pt-2">
@@ -163,7 +214,6 @@ const errorMessage = ref('')
 const successMessage = ref('')
 
 onMounted(() => {
-  // Ensure single-use Turnstile tokens reset properly on form submissions/retries
   const form = document.getElementById('register-form')
   if (form) {
     form.addEventListener('submit', () => {
@@ -222,6 +272,21 @@ const handleSocialLogin = async (provider) => {
 
   if (error) {
     errorMessage.value = error.message
+  }
+}
+
+const handleWeb3Register = async () => {
+  errorMessage.value = ''
+  try {
+    if (!window.ethereum) {
+      throw new Error('No Web3 wallet detected. Please install MetaMask or a compatible provider.')
+    }
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    if (!accounts || accounts.length === 0) return
+
+    navigateTo('/accounts')
+  } catch (err) {
+    errorMessage.value = err.message || 'Web3 registration failed.'
   }
 }
 </script>

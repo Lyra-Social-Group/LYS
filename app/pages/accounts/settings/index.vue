@@ -249,9 +249,13 @@ const profile = reactive({
 const socialProviders = ref([
   { id: 'google', label: 'Google', linked: false },
   { id: 'discord', label: 'Discord', linked: false },
-  { id: 'x', label: 'Twitter / X', linked: false },       // Changed from 'twitter' to 'x'
+  { id: 'x', label: 'Twitter / X', linked: false },
   { id: 'twitch', label: 'Twitch', linked: false },
-  { id: 'spotify', label: 'Spotify', linked: false }
+  { id: 'spotify', label: 'Spotify', linked: false },
+  { id: 'github', label: 'GitHub', linked: false },
+  { id: 'zoom', label: 'Zoom', linked: false },
+  { id: 'workos', label: 'WorkOS', linked: false },
+  { id: 'web3', label: 'Web3 Wallet', linked: false }
 ])
 
 // Fetch user data, identities, and guard route on mount
