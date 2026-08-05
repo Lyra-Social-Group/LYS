@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --lsg-purple: #A033ED;
+  --lsg-bg: #09040c;
+}
+
+html, body {
+  background-color: var(--lsg-bg);
+  min-height: 100vh;
+  margin: 0;
+}
+
+body {
+  background-image: linear-gradient(180deg, #6c198a 0%, #301140 25%, var(--lsg-bg) 70%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #f3f4f6;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Custom glow accents matching your brand color */
+.lsg-glow-border {
+  border: 1px solid rgba(160, 51, 237, 0.3);
+  box-shadow: 0 0 20px rgba(160, 51, 237, 0.12);
+}
+
+.lsg-glow-border:hover {
+  border-color: rgba(160, 51, 237, 0.6);
+  box-shadow: 0 0 30px rgba(160, 51, 237, 0.25);
+}
