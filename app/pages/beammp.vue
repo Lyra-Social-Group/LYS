@@ -10,7 +10,6 @@ useSeoMeta({
   description: 'Welcome to the ultimate BeamMP community server! Built for high-speed thrills, custom vehicle setups, physics destruction, and clean multiplayer cruising with friends.',
   ogTitle: 'ProGaming Server - BeamMP | Lyra Cuck HQ',
   ogDescription: 'Welcome to the ultimate BeamMP community server! Built for high-speed thrills, custom vehicle setups, physics destruction, and clean multiplayer cruising with friends.',
-  ogImage: 'https://lyrasocialgroup.tech/logo.png',
   twitterCard: 'summary_large_image',
 })
 
