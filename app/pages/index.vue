@@ -144,6 +144,48 @@ const toggleFaq = (index) => {
             Our community is designed for adults and young adults interested in digital culture, technology, and virtual events. Specific events may have age restrictions.
           </p>
         </div>
+
+        <!-- FAQ Item 4 -->
+        <div 
+          @click="toggleFaq(3)" 
+          class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-2 cursor-pointer transition-all"
+        >
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-bold text-white">What kind of virtual events and activities do you host?</h3>
+            <span class="text-[#A033ED] transform transition-transform" :class="{ 'rotate-180': openFaq === 3 }">▲</span>
+          </div>
+          <p v-show="openFaq === 3" class="text-gray-300 text-sm pt-2">
+            We host a variety of community gatherings, social hangouts, and interactive events primarily centered around VRChat environments, creative streams, and digital media sharing.
+          </p>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div 
+          @click="toggleFaq(4)" 
+          class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-2 cursor-pointer transition-all"
+        >
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-bold text-white">How can content creators or developers collaborate with LSG?</h3>
+            <span class="text-[#A033ED] transform transition-transform" :class="{ 'rotate-180': openFaq === 4 }">▲</span>
+          </div>
+          <p v-show="openFaq === 4" class="text-gray-300 text-sm pt-2">
+            We are always open to collaborating with fellow creators, developers, and artists! You can reach out directly via our contact form or chat with us in our community Discord to pitch ideas or partnership opportunities.
+          </p>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div 
+          @click="toggleFaq(5)" 
+          class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-2 cursor-pointer transition-all"
+        >
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-bold text-white">Do I need a VR headset to participate in the community?</h3>
+            <span class="text-[#A033ED] transform transition-transform" :class="{ 'rotate-180': openFaq === 5 }">▲</span>
+          </div>
+          <p v-show="openFaq === 5" class="text-gray-300 text-sm pt-2">
+            Not at all! While many of our members enjoy exploring virtual spaces via VR, a large portion of our community also participates through desktop mode, community text channels, streams, and our social platforms.
+          </p>
+        </div>
       </div>
     </section>
   </div>
