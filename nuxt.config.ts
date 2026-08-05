@@ -14,6 +14,12 @@ export default defineNuxtConfig({
       meta: [
         { name: 'theme-color', content: '#A033ED' },
         { property: 'og:image', content: 'https://lyrasocialgroup.tech/logo.png' }
+      ],
+      script: [
+        {
+          src: '//code.tidio.co/hvvgxetrnk48ocehxey8q1zh0zlxw0rb.js',
+          async: true
+        }
       ]
     }
   }
