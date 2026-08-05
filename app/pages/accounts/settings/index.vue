@@ -154,51 +154,71 @@
           </form>
         </div>
 
-        <!-- Connected Accounts (SSO Providers) -->
+        <!-- Connected Accounts (SSO Providers) with Dynamic Link/Unlink State -->
         <div class="p-8 rounded-2xl bg-[#13131a] lsg-glow-border space-y-6 flex flex-col justify-between">
           <div>
             <h2 class="text-lg font-bold text-white border-b border-gray-800 pb-4">Connected Accounts</h2>
-            <p class="text-xs text-gray-400 mt-4">Link your social providers for quick authentication.</p>
+            <p class="text-xs text-gray-400 mt-4">Link or unlink your social providers for quick authentication.</p>
           </div>
 
           <div class="space-y-3">
-            <button 
-              @click="linkProvider('google')"
-              class="w-full py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1a1a24] border border-[#A033ED]/40 text-white font-semibold text-xs tracking-wider uppercase transition-all flex items-center justify-center space-x-2 cursor-pointer"
-            >
-              <span>Link Google Account</span>
-            </button>
+            <div v-for="provider in socialProviders" :key="provider.id" class="flex items-center justify-between p-3 rounded-xl bg-[#0d0d12] border border-[#A033ED]/30">
+              <span class="text-xs font-medium text-white">{{ provider.label }}</span>
+              <button 
+                @click="provider.linked ? unlinkProvider(provider) : linkProvider(provider.id)"
+                type="button"
+                :class="provider.linked ? 'border-red-500/40 text-red-400 hover:bg-red-500/10' : 'border-[#A033ED]/40 text-purple-300 hover:bg-[#A033ED]/10'"
+                class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all cursor-pointer"
+              >
+                {{ provider.linked ? 'Unlink Account' : `Link ${provider.label}` }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <button 
-              @click="linkProvider('discord')"
-              class="w-full py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1a1a24] border border-[#A033ED]/40 text-white font-semibold text-xs tracking-wider uppercase transition-all flex items-center justify-center space-x-2 cursor-pointer"
-            >
-              <span>Link Discord Account</span>
-            </button>
+      <!-- Advanced Security: MFA & Passkeys -->
+      <div class="p-8 rounded-2xl bg-[#13131a] lsg-glow-border space-y-6">
+        <h2 class="text-lg font-bold text-white border-b border-gray-800 pb-4">Advanced Security</h2>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- MFA Section -->
+          <div class="p-4 rounded-xl bg-[#0d0d12] border border-[#A033ED]/30 space-y-3 flex flex-col justify-between">
+            <div>
+              <div class="text-sm font-semibold text-white">Multi-Factor Authentication</div>
+              <p class="text-xs text-gray-400 mt-1">
+                {{ mfaEnabled ? 'MFA is currently active via authenticator app.' : 'Protect your account using Google Authenticator, Authy, etc.' }}
+              </p>
+            </div>
             <button 
-              @click="linkProvider('twitter')"
-              class="w-full py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1a1a24] border border-[#A033ED]/40 text-white font-semibold text-xs tracking-wider uppercase transition-all flex items-center justify-center space-x-2 cursor-pointer"
+              @click="toggleMfa"
+              type="button"
+              class="w-full py-2 px-3 rounded-lg bg-[#A033ED] hover:bg-[#8e2cd4] text-white text-xs font-semibold transition-all cursor-pointer text-center"
             >
-              <span>Link Twitter / X Account</span>
+              {{ mfaEnabled ? 'Manage / Disable MFA' : 'Enable MFA' }}
             </button>
+          </div>
 
+          <!-- Passkey Section -->
+          <div class="p-4 rounded-xl bg-[#0d0d12] border border-[#A033ED]/30 space-y-3 flex flex-col justify-between">
+            <div>
+              <div class="text-sm font-semibold text-white">Passkeys</div>
+              <p class="text-xs text-gray-400 mt-1">Sign in seamlessly using biometrics or your hardware token.</p>
+            </div>
             <button 
-              @click="linkProvider('twitch')"
-              class="w-full py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1a1a24] border border-[#A033ED]/40 text-white font-semibold text-xs tracking-wider uppercase transition-all flex items-center justify-center space-x-2 cursor-pointer"
+              @click="createPasskey"
+              type="button"
+              class="w-full py-2 px-3 rounded-lg bg-[#1d1535] hover:bg-[#2A1B4E] border border-[#A033ED]/50 text-purple-200 text-xs font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Link Twitch Account</span>
-            </button>
-
-            <button 
-              @click="linkProvider('spotify')"
-              class="w-full py-2.5 px-4 rounded-xl bg-[#0d0d12] hover:bg-[#1a1a24] border border-[#A033ED]/40 text-white font-semibold text-xs tracking-wider uppercase transition-all flex items-center justify-center space-x-2 cursor-pointer"
-            >
-              <span>Link Spotify Account</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#A033ED]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+              </svg>
+              Create a Passkey
             </button>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -210,6 +230,8 @@ const client = useSupabaseClient()
 const loading = ref(true)
 const userEmail = ref('')
 const newPassword = ref('')
+const mfaEnabled = ref(false)
+const currentUserIdentities = ref([])
 
 const profile = reactive({
   display_name: '',
@@ -224,7 +246,15 @@ const profile = reactive({
   social_tiktok: ''
 })
 
-// Fetch user data and guard route on mount
+const socialProviders = ref([
+  { id: 'google', label: 'Google', linked: false },
+  { id: 'discord', label: 'Discord', linked: false },
+  { id: 'x', label: 'Twitter / X', linked: false },       // Changed from 'twitter' to 'x'
+  { id: 'twitch', label: 'Twitch', linked: false },
+  { id: 'spotify', label: 'Spotify', linked: false }
+])
+
+// Fetch user data, identities, and guard route on mount
 onMounted(async () => {
   const { data: { user } } = await client.auth.getUser()
   
@@ -233,6 +263,19 @@ onMounted(async () => {
   }
 
   userEmail.value = user.email
+  currentUserIdentities.value = user.identities || []
+
+  // Update linked statuses
+  socialProviders.value = socialProviders.value.map(provider => ({
+    ...provider,
+    linked: currentUserIdentities.value.some(identity => identity.provider === provider.id)
+  }))
+
+  // Check MFA status
+  const { data: mfaData } = await client.auth.mfa.listFactors()
+  if (mfaData?.totp?.some(f => f.status === 'verified')) {
+    mfaEnabled.value = true
+  }
 
   const { data, error } = await client
     .from('profiles')
@@ -255,6 +298,17 @@ onMounted(async () => {
 
   loading.value = false
 })
+
+const refreshIdentities = async () => {
+  const { data: { user } } = await client.auth.getUser()
+  if (user) {
+    currentUserIdentities.value = user.identities || []
+    socialProviders.value = socialProviders.value.map(provider => ({
+      ...provider,
+      linked: currentUserIdentities.value.some(identity => identity.provider === provider.id)
+    }))
+  }
+}
 
 const updateProfile = async () => {
   const { data: { user } } = await client.auth.getUser()
@@ -302,7 +356,6 @@ const uploadAvatar = async (event) => {
   const fileName = `${user.id}-${Math.random()}.${fileExt}`
   const filePath = `${fileName}`
 
-  // Upload to Supabase Storage bucket named 'avatars'
   const { error: uploadError } = await client.storage
     .from('avatars')
     .upload(filePath, file)
@@ -312,14 +365,12 @@ const uploadAvatar = async (event) => {
     return
   }
 
-  // Get public URL
   const { data: { publicUrl } } = client.storage
     .from('avatars')
     .getPublicUrl(filePath)
 
   profile.avatar_url = publicUrl
 
-  // Save to profile
   await client
     .from('profiles')
     .upsert({
@@ -334,10 +385,57 @@ const linkProvider = async (provider) => {
   const { error } = await client.auth.linkIdentity({ 
     provider: provider,
     options: {
-      redirectTo: `${window.location.origin}/accounts/settings`
+      redirectTo: `${window.location.origin}/accounts`
     }
   })
   if (error) alert(`Error linking ${provider} account: ` + error.message)
+}
+
+const unlinkProvider = async (providerObj) => {
+  const identity = currentUserIdentities.value.find(i => i.provider === providerObj.id)
+  if (!identity) {
+    alert('Identity record not found.')
+    return
+  }
+
+  const { error } = await client.auth.unlinkIdentity(identity)
+  if (error) {
+    alert(`Error unlinking ${providerObj.label}: ` + error.message)
+  } else {
+    alert(`Successfully unlinked ${providerObj.label}.`)
+    await client.auth.refreshSession()
+    await refreshIdentities()
+  }
+}
+
+const toggleMfa = async () => {
+  if (mfaEnabled.value) {
+    const { data } = await client.auth.mfa.listFactors()
+    for (const factor of data?.totp || []) {
+      await client.auth.mfa.unenroll({ factorId: factor.id })
+    }
+    mfaEnabled.value = false
+    alert('Multi-factor authentication has been disabled.')
+  } else {
+    const { data, error } = await client.auth.mfa.enroll({
+      factorType: 'totp',
+      issuer: 'Lyra Social Group'
+    })
+    if (error) {
+      alert('Error initiating MFA: ' + error.message)
+    } else {
+      alert('MFA enrollment initiated. Check console or implement your TOTP QR verification step with id: ' + data.id)
+    }
+  }
+}
+
+const createPasskey = async () => {
+  const { error } = await client.auth.mfa.passkey.register()
+  if (error) {
+    alert('Error creating passkey: ' + error.message)
+  } else {
+    alert('Passkey successfully registered!')
+  }
 }
 
 const handleLogout = async () => {
