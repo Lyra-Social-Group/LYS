@@ -53,10 +53,12 @@ const toggleFaq = (index) => {
         <!-- Left: Logo / Graphic Card -->
         <div class="p-8 rounded-2xl bg-[#13131a] lsg-glow-border flex flex-col items-center justify-center relative overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-tr from-[#A033ED]/20 to-transparent pointer-events-none"></div>
-          <div class="w-36 h-36 rounded-full overflow-hidden border-2 border-[#A033ED] shadow-lg shadow-[#A033ED]/20 flex items-center justify-center bg-[#521369]/40">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-[#A033ED]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
+          <div class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-[#A033ED] shadow-lg shadow-[#A033ED]/20 flex items-center justify-center bg-[#521369]/40 p-3">
+            <img 
+              src="https://raw.githubusercontent.com/Lyra-Social-Group/lyra-Social-Group-Pictures/refs/heads/main/logos/ProGaming/progaming%20logo.png" 
+              alt="ProGaming Logo" 
+              class="w-full h-full object-contain"
+            />
           </div>
         </div>
 
