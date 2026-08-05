@@ -9,18 +9,13 @@
           <span class="font-bold tracking-wide text-xl text-white">Lyra Social Group</span>
         </NuxtLink>
 
-        <!-- Navigation Links & Auth -->
+        <!-- Navigation Links -->
         <div class="flex items-center space-x-8">
           <nav class="hidden md:flex items-center space-x-8 text-sm md:text-base font-medium">
             <NuxtLink to="/#team" class="text-gray-200 hover:text-white transition-colors">Team</NuxtLink>
             <NuxtLink to="/hiring" class="text-gray-200 hover:text-white transition-colors">We are Hiring</NuxtLink>
             <a href="https://legal.lyrasocialgroup.tech" target="_blank" class="text-gray-200 hover:text-white transition-colors">TOS</a>
           </nav>
-
-          <!-- Auth Status Widget -->
-          <ClientOnly>
-            <UserAuthWidget />
-          </ClientOnly>
         </div>
       </div>
     </header>
@@ -39,5 +34,4 @@
 </template>
 
 <script setup>
-// All layout-level routing and Kinde wrapper handles session states via components now.
 </script>

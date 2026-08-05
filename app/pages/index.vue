@@ -1,3 +1,13 @@
+<script setup>
+import { ref } from 'vue'
+
+const openFaq = ref(null)
+
+const toggleFaq = (index) => {
+  openFaq.value = openFaq.value === index ? null : index
+}
+</script>
+
 <template>
   <div class="space-y-20 py-6">
     <!-- Hero Section -->
@@ -43,8 +53,7 @@
         <!-- Team Member 1: Lyra Foxwood -->
         <div class="p-8 rounded-2xl bg-[#13131a] lsg-glow-border flex flex-col items-center text-center space-y-6">
           <div class="w-36 h-36 rounded-full overflow-hidden border-2 border-[#A033ED] shadow-lg shadow-[#A033ED]/20">
-            <!-- Replace with actual team member image path if available -->
-            <img src="/logo.png" alt="Lyra Foxwood" class="w-full h-full object-cover" />
+            <img src="https://cdn.discordapp.com/avatars/1068754603933442048/6fae810e6afed0bc956d61e6e814d8e0.webp?size=1024" alt="Lyra Foxwood" class="w-full h-full object-cover" />
           </div>
           <div class="space-y-2">
             <h3 class="text-2xl font-bold text-white">Lyra Foxwood</h3>
@@ -84,43 +93,54 @@
 
       <div class="space-y-4">
         <!-- FAQ Item 1 -->
-        <div class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-2">
-          <div class="flex justify-between items-center cursor-pointer">
+        <div 
+          @click="toggleFaq(0)" 
+          class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-2 cursor-pointer transition-all"
+        >
+          <div class="flex justify-between items-center">
             <h3 class="text-lg font-bold text-white">Is prior experience with VR or digital platforms required to join?</h3>
-            <span class="text-[#A033ED]">▲</span>
+            <span class="text-[#A033ED] transform transition-transform" :class="{ 'rotate-180': openFaq === 0 }">▲</span>
           </div>
-          <p class="text-gray-300 text-sm">
+          <p v-show="openFaq === 0" class="text-gray-300 text-sm pt-2">
             No prior experience is necessary. We welcome beginners and provide guidance to help new members navigate our platforms.
           </p>
         </div>
 
         <!-- FAQ Item 2 -->
-        <div class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-3">
-          <div class="flex justify-between items-center cursor-pointer">
+        <div 
+          @click="toggleFaq(1)" 
+          class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-3 cursor-pointer transition-all"
+        >
+          <div class="flex justify-between items-center">
             <h3 class="text-lg font-bold text-white">How can I join Lyra Social Group?</h3>
-            <span class="text-[#A033ED]">▲</span>
+            <span class="text-[#A033ED] transform transition-transform" :class="{ 'rotate-180': openFaq === 1 }">▲</span>
           </div>
-          <p class="text-gray-300 text-sm">
-            You can join Lyra Social Group by signing up on our website and participating in our digital spaces such as Discord and VRChat. Join the Discord Today!!
-          </p>
-          <div>
-            <a 
-              href="https://discord.gg/qG5Fz2PaVb" 
-              target="_blank" 
-              class="inline-block px-4 py-2 rounded-lg bg-[#A033ED] hover:bg-[#8e2cd4] text-white text-xs font-semibold shadow transition-all"
-            >
-              discord
-            </a>
+          <div v-show="openFaq === 1" class="space-y-3 pt-2" @click.stop>
+            <p class="text-gray-300 text-sm">
+              You can join Lyra Social Group by signing up on our website and participating in our digital spaces such as Discord and VRChat. Join the Discord Today!!
+            </p>
+            <div>
+              <a 
+                href="https://discord.gg/qG5Fz2PaVb" 
+                target="_blank" 
+                class="inline-block px-4 py-2 rounded-lg bg-[#A033ED] hover:bg-[#8e2cd4] text-white text-xs font-semibold shadow transition-all"
+              >
+                discord
+              </a>
+            </div>
           </div>
         </div>
 
         <!-- FAQ Item 3 -->
-        <div class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-2">
-          <div class="flex justify-between items-center cursor-pointer">
+        <div 
+          @click="toggleFaq(2)" 
+          class="p-6 rounded-xl bg-[#13131a] lsg-glow-border space-y-2 cursor-pointer transition-all"
+        >
+          <div class="flex justify-between items-center">
             <h3 class="text-lg font-bold text-white">What age groups is Lyra Social Group suitable for?</h3>
-            <span class="text-[#A033ED]">▲</span>
+            <span class="text-[#A033ED] transform transition-transform" :class="{ 'rotate-180': openFaq === 2 }">▲</span>
           </div>
-          <p class="text-gray-300 text-sm">
+          <p v-show="openFaq === 2" class="text-gray-300 text-sm pt-2">
             Our community is designed for adults and young adults interested in digital culture, technology, and virtual events. Specific events may have age restrictions.
           </p>
         </div>
