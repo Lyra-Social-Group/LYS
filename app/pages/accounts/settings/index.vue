@@ -161,7 +161,7 @@
             <p class="text-xs text-gray-400 mt-4">Link or unlink your social providers for quick authentication.</p>
           </div>
 
-          <div class="space-y-3">
+          <div class="space-y-3 max-h-96 overflow-y-auto pr-1">
             <div v-for="provider in socialProviders" :key="provider.id" class="flex items-center justify-between p-3 rounded-xl bg-[#0d0d12] border border-[#A033ED]/30">
               <span class="text-xs font-medium text-white">{{ provider.label }}</span>
               <button 
@@ -243,7 +243,11 @@ const profile = reactive({
   social_facebook: '',
   social_twitter: '',
   social_twitch: '',
-  social_tiktok: ''
+  social_tiktok: '',
+  social_github: '',
+  social_zoom: '',
+  social_workos: '',
+  social_web3: ''
 })
 
 const socialProviders = ref([
@@ -272,7 +276,7 @@ onMounted(async () => {
   // Update linked statuses
   socialProviders.value = socialProviders.value.map(provider => ({
     ...provider,
-    linked: currentUserIdentities.value.some(identity => identity.provider === provider.id)
+    linked: currentUserIdentities.value.some(identity => identity.provider === provider.id) || (provider.id === 'web3' && Boolean(profile.social_web3))
   }))
 
   // Check MFA status
@@ -298,6 +302,18 @@ onMounted(async () => {
     profile.social_twitter = data.social_twitter || ''
     profile.social_twitch = data.social_twitch || ''
     profile.social_tiktok = data.social_tiktok || ''
+    profile.social_github = data.social_github || ''
+    profile.social_zoom = data.social_zoom || ''
+    profile.social_workos = data.social_workos || ''
+    profile.social_web3 = data.social_web3 || ''
+
+    // Re-verify web3 linked status with profile column data
+    socialProviders.value = socialProviders.value.map(provider => {
+      if (provider.id === 'web3') {
+        return { ...provider, linked: Boolean(data.social_web3) }
+      }
+      return provider
+    })
   }
 
   loading.value = false
@@ -307,10 +323,15 @@ const refreshIdentities = async () => {
   const { data: { user } } = await client.auth.getUser()
   if (user) {
     currentUserIdentities.value = user.identities || []
-    socialProviders.value = socialProviders.value.map(provider => ({
-      ...provider,
-      linked: currentUserIdentities.value.some(identity => identity.provider === provider.id)
-    }))
+    socialProviders.value = socialProviders.value.map(provider => {
+      if (provider.id === 'web3') {
+        return { ...provider, linked: Boolean(profile.social_web3) }
+      }
+      return {
+        ...provider,
+        linked: currentUserIdentities.value.some(identity => identity.provider === provider.id)
+      }
+    })
   }
 }
 
@@ -329,7 +350,11 @@ const updateProfile = async () => {
       social_facebook: profile.social_facebook,
       social_twitter: profile.social_twitter,
       social_twitch: profile.social_twitch,
-      social_tiktok: profile.social_tiktok
+      social_tiktok: profile.social_tiktok,
+      social_github: profile.social_github,
+      social_zoom: profile.social_zoom,
+      social_workos: profile.social_workos,
+      social_web3: profile.social_web3
     })
 
   if (error) {
@@ -385,17 +410,62 @@ const uploadAvatar = async (event) => {
   alert('Avatar updated!')
 }
 
-const linkProvider = async (provider) => {
+const linkProvider = async (providerId) => {
+  if (providerId === 'web3') {
+    try {
+      if (!window.ethereum) {
+        throw new Error('No Web3 wallet detected. Please install MetaMask or a compatible provider.')
+      }
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      if (!accounts || accounts.length === 0) return
+
+      const walletAddress = accounts[0]
+      const { data: { user } } = await client.auth.getUser()
+      if (!user) return
+
+      const { error } = await client
+        .from('profiles')
+        .upsert({ id: user.id, social_web3: walletAddress })
+
+      if (error) throw error
+
+      profile.social_web3 = walletAddress
+      await refreshIdentities()
+      alert(`Successfully linked Web3 Wallet: ${walletAddress}`)
+    } catch (err) {
+      alert('Error linking Web3 wallet: ' + (err.message || err))
+    }
+    return
+  }
+
   const { error } = await client.auth.linkIdentity({ 
-    provider: provider,
+    provider: providerId,
     options: {
       redirectTo: `${window.location.origin}/accounts`
     }
   })
-  if (error) alert(`Error linking ${provider} account: ` + error.message)
+  if (error) alert(`Error linking ${providerId} account: ` + error.message)
 }
 
 const unlinkProvider = async (providerObj) => {
+  if (providerObj.id === 'web3') {
+    const { data: { user } } = await client.auth.getUser()
+    if (!user) return
+
+    const { error } = await client
+      .from('profiles')
+      .upsert({ id: user.id, social_web3: null })
+
+    if (error) {
+      alert('Error unlinking Web3 wallet: ' + error.message)
+    } else {
+      profile.social_web3 = ''
+      await refreshIdentities()
+      alert('Successfully unlinked Web3 Wallet.')
+    }
+    return
+  }
+
   const identity = currentUserIdentities.value.find(i => i.provider === providerObj.id)
   if (!identity) {
     alert('Identity record not found.')
