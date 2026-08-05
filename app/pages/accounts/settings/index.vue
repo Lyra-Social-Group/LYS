@@ -220,6 +220,42 @@
       </div>
 
     </div>
+
+    <!-- MFA Enrollment Modal Overlay -->
+    <div v-if="showMfaModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div class="bg-[#13131a] lsg-glow-border p-6 rounded-2xl max-w-md w-full space-y-4">
+        <h3 class="text-lg font-bold text-white">Set Up Multi-Factor Authentication</h3>
+        <p class="text-xs text-gray-400">Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.), then input the 6-digit code below.</p>
+        
+        <div v-if="mfaQrCode" class="bg-white p-4 rounded-xl flex justify-center" v-html="mfaQrCode"></div>
+
+        <div class="space-y-1">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-purple-400">Verification Code</label>
+          <input 
+            v-model="mfaVerificationCode" 
+            type="text" 
+            maxlength="6"
+            placeholder="123456" 
+            class="w-full px-4 py-2.5 rounded-xl bg-[#0d0d12] border border-[#A033ED]/40 text-white focus:outline-none focus:border-[#A033ED] text-sm text-center tracking-widest font-mono"
+          />
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button 
+            @click="verifyAndEnableMfa" 
+            class="flex-1 py-2.5 rounded-xl bg-[#A033ED] hover:bg-[#8e2cd4] text-white font-semibold text-xs uppercase cursor-pointer"
+          >
+            Verify & Enable
+          </button>
+          <button 
+            @click="showMfaModal = false; pendingFactorId = null" 
+            class="px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-xs uppercase cursor-pointer"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -232,6 +268,12 @@ const userEmail = ref('')
 const newPassword = ref('')
 const mfaEnabled = ref(false)
 const currentUserIdentities = ref([])
+
+// MFA Modal states
+const showMfaModal = ref(false)
+const mfaQrCode = ref('')
+const mfaVerificationCode = ref('')
+const pendingFactorId = ref(null)
 
 const profile = reactive({
   display_name: '',
@@ -262,7 +304,6 @@ const socialProviders = ref([
   { id: 'web3', label: 'Web3 Wallet', linked: false }
 ])
 
-// Fetch user data, identities, and guard route on mount
 onMounted(async () => {
   const { data: { user } } = await client.auth.getUser()
   
@@ -273,13 +314,11 @@ onMounted(async () => {
   userEmail.value = user.email
   currentUserIdentities.value = user.identities || []
 
-  // Update linked statuses
   socialProviders.value = socialProviders.value.map(provider => ({
     ...provider,
     linked: currentUserIdentities.value.some(identity => identity.provider === provider.id) || (provider.id === 'web3' && Boolean(profile.social_web3))
   }))
 
-  // Check MFA status
   const { data: mfaData } = await client.auth.mfa.listFactors()
   if (mfaData?.totp?.some(f => f.status === 'verified')) {
     mfaEnabled.value = true
@@ -307,7 +346,6 @@ onMounted(async () => {
     profile.social_workos = data.social_workos || ''
     profile.social_web3 = data.social_web3 || ''
 
-    // Re-verify web3 linked status with profile column data
     socialProviders.value = socialProviders.value.map(provider => {
       if (provider.id === 'web3') {
         return { ...provider, linked: Boolean(data.social_web3) }
@@ -498,8 +536,39 @@ const toggleMfa = async () => {
     if (error) {
       alert('Error initiating MFA: ' + error.message)
     } else {
-      alert('MFA enrollment initiated. Check console or implement your TOTP QR verification step with id: ' + data.id)
+      pendingFactorId.value = data.id
+      mfaQrCode.value = data.totp.qr_code
+      mfaVerificationCode.value = ''
+      showMfaModal.value = true
     }
+  }
+}
+
+const verifyAndEnableMfa = async () => {
+  if (!pendingFactorId.value || !mfaVerificationCode.value) return
+
+  const { data: challengeData, error: challengeError } = await client.auth.mfa.challenge({
+    factorId: pendingFactorId.value
+  })
+
+  if (challengeError) {
+    alert('Error creating challenge: ' + challengeError.message)
+    return
+  }
+
+  const { error: verifyError } = await client.auth.mfa.verify({
+    factorId: pendingFactorId.value,
+    challengeId: challengeData.id,
+    code: mfaVerificationCode.value
+  })
+
+  if (verifyError) {
+    alert('Invalid verification code: ' + verifyError.message)
+  } else {
+    mfaEnabled.value = true
+    showMfaModal.value = false
+    pendingFactorId.value = null
+    alert('MFA successfully enabled!')
   }
 }
 

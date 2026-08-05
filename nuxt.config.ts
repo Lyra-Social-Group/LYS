@@ -9,7 +9,18 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase'
   ],
   supabase: {
-    redirect: false
+    redirect: false,
+    clientOptions: {
+      auth: {
+        flowType: 'pkce',
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+      },
+      experimental: {
+        passkey: true
+      }
+    }
   },
   app: {
     head: {

@@ -261,11 +261,11 @@ const handleSocialLogin = async (provider) => {
 
 const handlePasskeyLogin = async () => {
   errorMessage.value = ''
-  const { error } = await client.auth.signInWithPasskey()
+  const { data, error } = await client.auth.signInWithPasskey()
   
   if (error) {
     errorMessage.value = error.message
-  } else {
+  } else if (data?.user) {
     navigateTo('/accounts')
   }
 }
@@ -276,12 +276,24 @@ const handleWeb3Login = async () => {
     if (!window.ethereum) {
       throw new Error('No Web3 wallet detected. Please install MetaMask or a compatible provider.')
     }
-    // Request account connection and initiate SIWE (Sign-In with Ethereum) token exchange
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     if (!accounts || accounts.length === 0) return
 
-    // Proceed with custom Web3 credential verification flow linked to Supabase session
-    navigateTo('/accounts')
+    const walletAddress = accounts[0]
+    
+    // Check if a user with this web3 wallet address already exists in the database
+    const { data: profileMatch, error: queryError } = await client
+      .from('profiles')
+      .select('id')
+      .eq('social_web3', walletAddress)
+      .single()
+
+    if (queryError || !profileMatch) {
+      throw new Error('No account found linked to this Web3 wallet address. Please link your wallet inside your dashboard first.')
+    }
+
+    // Since Web3 custom lookup maps to a user profile, sign in or authenticate via custom flow session
+    alert(`Web3 Wallet verified: ${walletAddress}. Backend custom login handshake required or map session token.`)
   } catch (err) {
     errorMessage.value = err.message || 'Web3 authentication failed.'
   }
