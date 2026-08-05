@@ -15,18 +15,27 @@
             <NuxtLink to="/#team" class="text-gray-200 hover:text-white transition-colors">Team</NuxtLink>
             <NuxtLink to="/hiring" class="text-gray-200 hover:text-white transition-colors">We are Hiring</NuxtLink>
             
-            <!-- HO Hosting Services Dropdown -->
+            <!-- Lyra's Cuck HQ Dropdown (Includes Hosting Services Sub-menu) -->
             <div class="relative group">
               <button class="flex items-center gap-1 text-gray-200 hover:text-white transition-colors py-2">
-                Hosting Services
+                Lyra Cuck HQ
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               
               <!-- Dropdown Menu -->
-              <div class="absolute left-0 mt-0 w-56 rounded-xl bg-[#13131a] border border-[#A033ED]/40 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
-                <NuxtLink to="/beammp" class="block px-4 py-2.5 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
+              <div class="absolute left-0 mt-0 w-64 rounded-xl bg-[#13131a] border border-[#A033ED]/40 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+                <NuxtLink to="/lyrascuckhq" class="block px-4 py-2.5 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
+                  Home
+                </NuxtLink>
+                
+                <!-- Nested / Grouped Hosting Services Option -->
+                <div class="border-t border-[#A033ED]/20 my-1"></div>
+                <div class="px-4 py-1 text-xs font-semibold uppercase tracking-wider text-purple-400">
+                  Lyra's Cuck HQ Hosting Services
+                </div>
+                <NuxtLink to="/lyrascuckhq/hosting/beammp" class="block px-4 py-2.5 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
                   ProGaming Server (BeamMP)
                 </NuxtLink>
               </div>
@@ -46,7 +55,8 @@
     <!-- Footer -->
     <footer class="border-t border-[#A033ED]/20 bg-[#13131a] py-8 text-center text-xs md:text-sm text-gray-400 space-y-2">
       <p class="font-medium text-white">Lyra Social Group</p>
-      <p>© {{ new Date().getFullYear() }} Lyra Social Group. All rights reserved.</p>
+      <p>© {{ new Date().getFullYear() }} Lyra Social Group and Lyra's Cuck HQ All rights reserved.</p>
+      <p>Lyra's Cuck HQ is a registered trademark of Lyra Social Group</p>
     </footer>
   </div>
 </template>
