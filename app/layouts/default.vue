@@ -160,7 +160,7 @@
           <!-- Status Badge Embed -->
           <div class="overflow-hidden rounded-lg border border-[#A033ED]/20">
             <iframe 
-              src="https://status.lyrasocialgroup.tech/badge?theme=dark" 
+              src="https://status.lyrasocialgroup.tech/badge" 
               width="250" 
               height="30" 
               frameborder="0" 
