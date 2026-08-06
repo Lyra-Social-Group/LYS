@@ -12,7 +12,6 @@
         <!-- Navigation Links -->
         <div class="flex items-center space-x-8">
           <nav class="hidden md:flex items-center space-x-8 text-sm md:text-base font-medium">
-            <NuxtLink to="/community" class="text-gray-200 hover:text-white transition-colors">Community</NuxtLink>
             <NuxtLink to="/our-team" class="text-gray-200 hover:text-white transition-colors">Team</NuxtLink>
             <NuxtLink to="/jobs" class="text-gray-200 hover:text-white transition-colors">Jobs at Lyra Social Group</NuxtLink>
             
@@ -151,7 +150,6 @@
               <NuxtLink to="/our-team" class="text-gray-300 hover:text-[#A033ED] transition-colors">Team</NuxtLink>
               <NuxtLink to="/jobs" class="text-gray-300 hover:text-[#A033ED] transition-colors">Jobs at Lyra Social Group</NuxtLink>
               <NuxtLink to="/lyrascuckhq" class="text-gray-300 hover:text-[#A033ED] transition-colors">Lyra's Cuck HQ</NuxtLink>
-              <NuxtLink to="/lyrascuckhq/hosting/beammp/race" class="text-gray-300 hover:text-[#A033ED] transition-colors pl-3 border-l border-[#A033ED]/40">2026 Race Handbook</NuxtLink>
             </div>
           </div>
 
