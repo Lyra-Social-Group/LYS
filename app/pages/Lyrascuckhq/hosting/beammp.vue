@@ -55,7 +55,7 @@ const toggleFaq = (index) => {
           <div class="absolute inset-0 bg-gradient-to-tr from-[#A033ED]/20 to-transparent pointer-events-none"></div>
           <div class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-[#A033ED] shadow-lg shadow-[#A033ED]/20 flex items-center justify-center bg-[#521369]/40 p-3">
             <img 
-              src="https://raw.githubusercontent.com/Lyra-Social-Group/lyra-Social-Group-Pictures/refs/heads/main/logos/ProGaming/progaming%20logo.png" 
+              src="https://raw.githubusercontent.com/Lyra-Social-Group/lyra-Social-Group-Pictures/refs/heads/main/logos/ProGaming/pro.png" 
               alt="ProGaming Logo" 
               class="w-full h-full object-contain"
             />

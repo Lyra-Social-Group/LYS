@@ -32,12 +32,45 @@
                 </NuxtLink>
                 
                 <div class="border-t border-[#A033ED]/20 my-1"></div>
+                
                 <NuxtLink to="/lyrascuckhq/hosting" class="block px-4 py-2.5 text-sm font-semibold text-purple-400 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
                   Lyra's Cuck HQ Hosting Services
                 </NuxtLink>
-                <NuxtLink to="/lyrascuckhq/hosting/beammp" class="block px-4 py-2.5 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors pl-8">
-                  ProGaming Server (BeamMP)
-                </NuxtLink>
+
+                <!-- Pro Gaming Server Dropdown (Nested Submenu) -->
+                <div class="relative group/sub">
+                  <div class="flex items-center justify-between px-4 py-2.5 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors cursor-pointer">
+                    <span>Pro Gaming Server</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+
+                  <!-- Submenu for Pro Gaming Server -->
+                  <div class="absolute left-full top-0 ml-1 w-56 rounded-xl bg-[#13131a] border border-[#A033ED]/40 shadow-xl opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 py-2 z-50">
+                    <NuxtLink to="/lyrascuckhq/hosting/beammp" class="block px-4 py-2 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
+                      Overview (BeamMP)
+                    </NuxtLink>
+
+                    <!-- Races Dropdown (Nested Further) -->
+                    <div class="relative group/races">
+                      <div class="flex items-center justify-between px-4 py-2 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors cursor-pointer">
+                        <span>Races</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+
+                      <!-- Submenu for Races -->
+                      <div class="absolute left-full top-0 ml-1 w-48 rounded-xl bg-[#13131a] border border-[#A033ED]/40 shadow-xl opacity-0 invisible group-hover/races:opacity-100 group-hover/races:visible transition-all duration-200 py-2 z-50">
+                        <NuxtLink to="/lyrascuckhq/hosting/ProGamingServer/races/2026" class="block px-4 py-2 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
+                          2026
+                        </NuxtLink>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -118,6 +151,7 @@
               <NuxtLink to="/our-team" class="text-gray-300 hover:text-[#A033ED] transition-colors">Team</NuxtLink>
               <NuxtLink to="/jobs" class="text-gray-300 hover:text-[#A033ED] transition-colors">Jobs at Lyra Social Group</NuxtLink>
               <NuxtLink to="/lyrascuckhq" class="text-gray-300 hover:text-[#A033ED] transition-colors">Lyra's Cuck HQ</NuxtLink>
+              <NuxtLink to="/lyrascuckhq/hosting/beammp/race" class="text-gray-300 hover:text-[#A033ED] transition-colors pl-3 border-l border-[#A033ED]/40">2026 Race Handbook</NuxtLink>
             </div>
           </div>
 
