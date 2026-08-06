@@ -8,6 +8,16 @@ const renderedMarkdown = computed(() => {
   if (!handbookData.value?.content) return ''
   return marked.parse(handbookData.value.content)
 })
+
+useSeoMeta({
+  title: 'Programming Endurance Racing Series hand book of 2026 | Lyra Cuck HQ',
+  description: 'Programming Endurance Racing Series hand book of 2026',
+  ogTitle: 'Programming Endurance Racing Series hand book of 2026 | Lyra Cuck HQ',
+  ogDescription: 'Programming Endurance Racing Series hand book of 2026',
+  ogImage: 'https://raw.githubusercontent.com/Lyra-Social-Group/lyra-Social-Group-Pictures/refs/heads/main/logos/ProGaming/pro.png',
+  twitterCard: 'summary',
+})
+
 </script>
 
 <template>
