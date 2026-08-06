@@ -133,7 +133,7 @@
           </div>
         </div>
 
-        <!-- Right Side: Back to Top, TOS Button & Copyright -->
+        <!-- Right Side: Status Badge, Back to Top, TOS Button & Copyright -->
         <div class="flex flex-col items-start md:items-end space-y-4 text-xs md:text-sm text-gray-400 w-full md:w-auto">
           <div class="flex flex-wrap items-center gap-3">
             <!-- Back to Top Button -->
@@ -155,6 +155,18 @@
             >
               Terms of Service (TOS)
             </a>
+          </div>
+
+          <!-- Status Badge Embed -->
+          <div class="overflow-hidden rounded-lg border border-[#A033ED]/20">
+            <iframe 
+              src="https://status.lyrasocialgroup.tech/badge?theme=dark" 
+              width="250" 
+              height="30" 
+              frameborder="0" 
+              scrolling="no" 
+              style="color-scheme: normal; background: transparent;"
+            ></iframe>
           </div>
 
           <div class="space-y-1 text-left md:text-right pt-2">
