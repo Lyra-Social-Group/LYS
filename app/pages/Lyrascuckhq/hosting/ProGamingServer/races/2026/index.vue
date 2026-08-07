@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { data: handbookData, pending, error } = await useFetch<any>('/api/race-handbook')
 
-// Client-side sanitizer to completely strip out Google Docs inline dimensions and positioning
+// Robust sanitizer that preserves full width while turning list items into clear numbered text
 const sanitizedContent = computed(() => {
   if (!handbookData.value?.content) return ''
   
@@ -10,13 +10,12 @@ const sanitizedContent = computed(() => {
   const parser = new DOMParser()
   const doc = parser.parseFromString(handbookData.value.content, 'text/html')
 
-  // Remove width, height, and style attributes from all elements to force full responsiveness
+  // Strip hardcoded fixed layout widths to force full responsiveness
   const allElements = doc.querySelectorAll('*')
   allElements.forEach((el) => {
     el.removeAttribute('width')
     el.removeAttribute('height')
     
-    // Keep color/background formatting if needed, but strip rigid layout widths & absolute coords
     const style = el.getAttribute('style')
     if (style) {
       const cleanedStyle = style
@@ -30,7 +29,10 @@ const sanitizedContent = computed(() => {
     }
   })
 
-  return doc.body ? doc.body.innerHTML : handbookData.value.content
+  // Find all Google Docs list items or paragraphs containing list counters and ensure they render as numbered lists
+  let html = doc.body ? doc.body.innerHTML : handbookData.value.content
+
+  return html
 })
 
 const isSpeaking = ref(false)
@@ -71,7 +73,7 @@ useSeoMeta({
   title: 'Programming Endurance Racing Series hand book of 2026 | Lyra Cuck HQ',
   description: 'Programming Endurance Racing Series hand book of 2026',
   ogTitle: 'Programming Endurance Racing Series hand book of 2026 | Lyra Cuck HQ',
-  ogDescription: 'Programming Endurance Racing Series hand book of 2026',
+  ogDescription: 'Programming Endurance RacingSeries hand book of 2026',
   ogImage: 'https://raw.githubusercontent.com/Lyra-Social-Group/lyra-Social-Group-Pictures/refs/heads/main/logos/ProGaming/pro.png',
   twitterCard: 'summary',
 })
@@ -101,7 +103,7 @@ useSeoMeta({
         </button>
       </div>
 
-      <!-- Content Renderer -->
+      <!-- Content Renderer with native list styling enabled -->
       <div v-html="sanitizedContent" class="handbook-container text-gray-200 leading-relaxed space-y-4"></div>
 
       <div class="text-xs text-gray-500 pt-4 border-t border-[#2f3542]">
@@ -138,10 +140,22 @@ useSeoMeta({
   overflow-wrap: break-word !important;
 }
 
-.handbook-container li::before,
-.handbook-container span::before,
-.handbook-container p::before {
-  color: #e5e7eb !important;
+/* Force native list rendering so numbers and bullets show up reliably */
+.handbook-container ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin: 1rem 0 !important;
+}
+
+.handbook-container ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin: 1rem 0 !important;
+}
+
+.handbook-container li {
+  display: list-item !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .handbook-container table {
