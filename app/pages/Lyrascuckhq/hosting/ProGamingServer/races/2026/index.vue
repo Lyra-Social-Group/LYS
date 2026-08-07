@@ -1,11 +1,36 @@
 <script setup lang="ts">
-import { marked } from 'marked'
-
 const { data: handbookData, pending, error } = await useFetch<any>('/api/race-handbook')
 
-const renderedMarkdown = computed(() => {
+// Client-side sanitizer to completely strip out Google Docs inline dimensions and positioning
+const sanitizedContent = computed(() => {
   if (!handbookData.value?.content) return ''
-  return marked.parse(handbookData.value.content)
+  
+  if (!import.meta.client) return handbookData.value.content
+
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(handbookData.value.content, 'text/html')
+
+  // Remove width, height, and style attributes from all elements to force full responsiveness
+  const allElements = doc.querySelectorAll('*')
+  allElements.forEach((el) => {
+    el.removeAttribute('width')
+    el.removeAttribute('height')
+    
+    // Keep color/background formatting if needed, but strip rigid layout widths & absolute coords
+    const style = el.getAttribute('style')
+    if (style) {
+      const cleanedStyle = style
+        .replace(/width:[^;]+;?/gi, '')
+        .replace(/max-width:[^;]+;?/gi, '')
+        .replace(/min-width:[^;]+;?/gi, '')
+        .replace(/position:[^;]+;?/gi, '')
+        .replace(/left:[^;]+;?/gi, '')
+        .replace(/top:[^;]+;?/gi, '')
+      el.setAttribute('style', cleanedStyle)
+    }
+  })
+
+  return doc.body ? doc.body.innerHTML : handbookData.value.content
 })
 
 const isSpeaking = ref(false)
@@ -20,10 +45,9 @@ const toggleSpeech = () => {
     return
   }
 
-  // Strip markdown syntax characters so speech sounds clean
-  const cleanText = handbookData.value.content
-    .replace(/[#*`_\[\]()]/g, '')
-    .replace(/\|/g, ' ')
+  const tempDiv = document.createElement('div')
+  tempDiv.innerHTML = handbookData.value.content
+  const cleanText = tempDiv.textContent || tempDiv.innerText || ''
 
   speechUtterance = new SpeechSynthesisUtterance(cleanText)
   speechUtterance.rate = 1.0
@@ -77,8 +101,8 @@ useSeoMeta({
         </button>
       </div>
 
-      <!-- Renders the fetched content dynamically as structured Markdown HTML -->
-      <div v-html="renderedMarkdown" class="prose prose-invert max-w-none space-y-4"></div>
+      <!-- Content Renderer -->
+      <div v-html="sanitizedContent" class="handbook-container text-gray-200 leading-relaxed space-y-4"></div>
 
       <div class="text-xs text-gray-500 pt-4 border-t border-[#2f3542]">
         Last synchronized with live document: {{ new Date(handbookData.updatedAt).toLocaleString() }}
@@ -86,3 +110,55 @@ useSeoMeta({
     </div>
   </div>
 </template>
+
+<style>
+.handbook-container, 
+.handbook-container div,
+.handbook-container table {
+  width: 100% !important;
+  max-width: 100% !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.handbook-container p, 
+.handbook-container span, 
+.handbook-container li, 
+.handbook-container h1, 
+.handbook-container h2, 
+.handbook-container h3, 
+.handbook-container h4 {
+  color: #e5e7eb !important;
+  background-color: transparent !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+.handbook-container li::before,
+.handbook-container span::before,
+.handbook-container p::before {
+  color: #e5e7eb !important;
+}
+
+.handbook-container table {
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.handbook-container td, 
+.handbook-container th {
+  padding: 0.75rem 1rem;
+  color: #f3f4f6 !important;
+  border-color: #2f3542 !important;
+  background-color: transparent !important;
+}
+
+.handbook-container img {
+  max-width: 100%;
+  height: auto;
+}
+</style>
