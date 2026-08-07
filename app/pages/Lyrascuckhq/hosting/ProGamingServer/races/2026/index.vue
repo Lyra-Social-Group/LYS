@@ -1,12 +1,46 @@
-<script setup>
+<script setup lang="ts">
 import { marked } from 'marked'
 
-const { data: handbookData, pending, error } = await useFetch('/api/race-handbook')
+const { data: handbookData, pending, error } = await useFetch<any>('/api/race-handbook')
 
-// Computed property to turn the raw text/markdown into rendered HTML
 const renderedMarkdown = computed(() => {
   if (!handbookData.value?.content) return ''
   return marked.parse(handbookData.value.content)
+})
+
+const isSpeaking = ref(false)
+let speechUtterance: SpeechSynthesisUtterance | null = null
+
+const toggleSpeech = () => {
+  if (!import.meta.client || !handbookData.value?.content) return
+
+  if (isSpeaking.value) {
+    window.speechSynthesis.cancel()
+    isSpeaking.value = false
+    return
+  }
+
+  // Strip markdown syntax characters so speech sounds clean
+  const cleanText = handbookData.value.content
+    .replace(/[#*`_\[\]()]/g, '')
+    .replace(/\|/g, ' ')
+
+  speechUtterance = new SpeechSynthesisUtterance(cleanText)
+  speechUtterance.rate = 1.0
+  speechUtterance.pitch = 1.0
+
+  speechUtterance.onend = () => {
+    isSpeaking.value = false
+  }
+
+  window.speechSynthesis.speak(speechUtterance)
+  isSpeaking.value = true
+}
+
+onUnmounted(() => {
+  if (import.meta.client) {
+    window.speechSynthesis.cancel()
+  }
 })
 
 useSeoMeta({
@@ -17,7 +51,6 @@ useSeoMeta({
   ogImage: 'https://raw.githubusercontent.com/Lyra-Social-Group/lyra-Social-Group-Pictures/refs/heads/main/logos/ProGaming/pro.png',
   twitterCard: 'summary',
 })
-
 </script>
 
 <template>
@@ -30,7 +63,20 @@ useSeoMeta({
       Unable to load the race handbook at this moment.
     </div>
 
-    <div v-else class="bg-[#181b22] border border-[#2f3542] rounded-xl p-8 shadow-xl space-y-6">
+    <div v-else-if="handbookData" class="bg-[#181b22] border border-[#2f3542] rounded-xl p-8 shadow-xl space-y-6">
+      
+      <!-- Audio Assistant Bar -->
+      <div class="flex items-center justify-between pb-4 border-b border-[#2f3542]">
+        <span class="text-sm text-gray-400">Audio Assistant</span>
+        <button 
+          @click="toggleSpeech" 
+          class="flex items-center space-x-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-medium text-sm transition-colors shadow-lg cursor-pointer"
+        >
+          <span v-if="!isSpeaking">🔊 Read Handbook</span>
+          <span v-else>⏹ Stop Reading</span>
+        </button>
+      </div>
+
       <!-- Renders the fetched content dynamically as structured Markdown HTML -->
       <div v-html="renderedMarkdown" class="prose prose-invert max-w-none space-y-4"></div>
 
