@@ -28,7 +28,7 @@ const toggleFaq = (index) => {
         </p>
         <div>
           <a 
-            href="mailto:contactme@lyrafoxwood.app" 
+            href="mailto:contactme@Lyrasocialgroup.tech" 
             class="inline-block px-8 py-3 rounded-xl bg-[#A033ED] hover:bg-[#8e2cd4] text-white font-semibold shadow-lg shadow-[#A033ED]/30 transition-all transform hover:-translate-y-0.5"
           >
             Contact Us
