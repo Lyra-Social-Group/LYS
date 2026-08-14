@@ -15,6 +15,25 @@
             <NuxtLink to="/our-team" class="text-gray-200 hover:text-white transition-colors">Team</NuxtLink>
             <NuxtLink to="/jobs" class="text-gray-200 hover:text-white transition-colors">Jobs at Lyra Social Group</NuxtLink>
             
+            <!-- Maid Monday Dropdown -->
+            <div class="relative group">
+              <button class="flex items-center gap-1 text-gray-200 hover:text-white transition-colors py-2 cursor-pointer">
+                Maid Monday
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <div class="absolute left-0 mt-0 w-56 rounded-xl bg-[#13131a] border border-[#A033ED]/40 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+                <NuxtLink to="/maid-monday" class="block px-4 py-2.5 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
+                  Overview
+                </NuxtLink>
+                <NuxtLink to="https://discord.gg/tpFPhnJhhf" target="_blank" class="block px-4 py-2.5 text-sm font-semibold text-pink-400 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
+                  Join Discord 🚀
+                </NuxtLink>
+              </div>
+            </div>
+            
             <!-- Lyra's Cuck HQ Dropdown -->
             <div class="relative group">
               <button class="flex items-center gap-1 text-gray-200 hover:text-white transition-colors py-2 cursor-pointer">
@@ -149,6 +168,7 @@
               <NuxtLink to="/community" class="text-gray-300 hover:text-[#A033ED] transition-colors">Community</NuxtLink>
               <NuxtLink to="/our-team" class="text-gray-300 hover:text-[#A033ED] transition-colors">Team</NuxtLink>
               <NuxtLink to="/jobs" class="text-gray-300 hover:text-[#A033ED] transition-colors">Jobs at Lyra Social Group</NuxtLink>
+              <NuxtLink to="/maid-monday" class="text-gray-300 hover:text-[#A033ED] transition-colors">Maid Monday</NuxtLink>
               <NuxtLink to="/lyrascuckhq" class="text-gray-300 hover:text-[#A033ED] transition-colors">Lyra's Cuck HQ</NuxtLink>
             </div>
           </div>
