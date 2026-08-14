@@ -7,6 +7,9 @@ useHead({
 })
 
 const { data: groupData, pending } = await useFetch('/api/group-status')
+
+// Fetch photos from your Google Drive server route
+const { data: photos } = await useFetch('/api/drive-photos')
 </script>
 
 <template>
@@ -113,6 +116,41 @@ const { data: groupData, pending } = await useFetch('/api/group-status')
             <span>Always listen to what an admin tells you; failure to do so results in a warning.</span>
           </li>
         </ul>
+      </div>
+
+      <!-- Google Drive Event Gallery Section -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <h2 class="text-xl font-semibold text-white">Event Gallery 📸</h2>
+        <p class="text-slate-400 text-sm">
+          Snapshots from past Maid Monday sessions, synced live from our community drive.
+        </p>
+
+        <!-- Gallery Grid -->
+        <div v-if="photos && photos.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
+          <div 
+            v-for="photo in photos" 
+            :key="photo.id" 
+            class="relative group overflow-hidden rounded-xl bg-slate-950 border border-slate-800 flex flex-col"
+          >
+            <!-- Image Display Container -->
+            <div class="w-full h-48 bg-slate-900 overflow-hidden">
+              <img 
+                :src="photo.url" 
+                :alt="photo.name"
+                loading="lazy"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+            <!-- File Name Footer -->
+            <div class="p-3 bg-slate-900/80 border-t border-slate-800/50">
+              <p class="text-xs text-slate-300 truncate" :title="photo.name">{{ photo.name }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div v-else class="text-sm text-slate-400 p-4 bg-slate-950/50 rounded-xl border border-slate-800 text-center">
+          No photos uploaded to the drive folder yet, or endpoint is pending setup! Drop some images into your shared folder to see them sync here.
+        </div>
       </div>
 
       <!-- Discord Call to Action -->
