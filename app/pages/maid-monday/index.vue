@@ -22,7 +22,7 @@ const { data: photos } = await useFetch('/api/drive-photos')
           Maid Monday 🌸
         </h1>
         <p class="text-slate-400 text-lg">
-          A weekly VRChat event hosted every Monday. 
+          A weekly VRChat event hosted every Monday and 18 plus every tuesday. 
         </p>
       </div>
 
@@ -68,10 +68,18 @@ const { data: photos } = await useFetch('/api/drive-photos')
                 <p class="font-bold text-white text-base">{{ instance.world?.name || 'Maid Monday Lobby' }}</p>
                 <p class="text-xs text-slate-400 mt-0.5">Region: US East | Author: {{ instance.world?.authorName }}</p>
               </div>
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2">
                 <span class="px-3 py-1.5 bg-pink-500/20 text-pink-300 rounded-full font-medium text-xs whitespace-nowrap">
                   👥 {{ instance.memberCount }} / {{ instance.world?.capacity }} players
                 </span>
+
+                <!-- Direct VRChat Launch Button -->
+                <a 
+                  :href="`vrchat://launch?worldId=${instance.world?.id}&ref=${instance.instanceId}`"
+                  class="px-3 py-1.5 bg-pink-600 hover:bg-pink-500 text-white rounded-lg font-medium text-xs transition-colors flex items-center gap-1.5 whitespace-nowrap shadow-md"
+                >
+                  <span>Launch VRChat 🚀</span>
+                </a>
               </div>
             </div>
           </template>
