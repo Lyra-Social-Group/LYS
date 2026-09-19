@@ -8,6 +8,10 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/supabase'
   ],
+  runtimeConfig: {
+  stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
+  stripeDonationCurrency: process.env.STRIPE_DONATION_CURRENCY || 'usd'
+  },
   supabase: {
     redirect: false,
     clientOptions: {
