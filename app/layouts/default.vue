@@ -33,6 +33,14 @@
                 </NuxtLink>
               </div>
             </div>
+
+
+            <NuxtLink
+              to="/donate"
+              class="..."
+>
+              Donate
+            </NuxtLink>
             
             <!-- Lyra's Cuck HQ Dropdown -->
             <div class="relative group">
@@ -51,12 +59,6 @@
                 
                 <div class="border-t border-[#A033ED]/20 my-1"></div>
 
-                <NuxtLink
-                  to="/donate"
-                  class="..."
->
-                  Donate
-                </NuxtLink>
                 
                 <NuxtLink to="/lyrascuckhq/hosting" class="block px-4 py-2.5 text-sm font-semibold text-purple-400 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
                   Lyra's Cuck HQ Hosting Services
