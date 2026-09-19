@@ -94,13 +94,6 @@ useSeoMeta({
 
       <!-- Header -->
       <section class="mb-12 text-center">
-
-        <div
-          class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-purple-600/20"
-        >
-          <span class="text-4xl">💜</span>
-        </div>
-
         <h1
           class="text-4xl font-bold tracking-tight sm:text-5xl"
         >
