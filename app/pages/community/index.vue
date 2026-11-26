@@ -49,8 +49,10 @@
         </div>
       </div>
 
-      <!-- Right Sidebar: Quick Links / Rules -->
+      <!-- Right Sidebar: Discord + Guidelines -->
       <div class="space-y-6">
+        <DiscordInviteCard />
+
         <div class="p-6 rounded-2xl bg-[#13131a] lsg-glow-border space-y-4">
           <h2 class="text-base font-bold text-white text-purple-400 uppercase tracking-wider text-xs">Community Guidelines</h2>
           <ul class="text-sm text-gray-300 space-y-2 list-disc list-inside">

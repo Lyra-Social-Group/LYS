@@ -10,7 +10,7 @@
         </NuxtLink>
 
         <!-- Navigation Links -->
-        <div class="flex items-center space-x-8">
+        <div class="flex items-center space-x-3 sm:space-x-6 md:space-x-8">
           <nav class="hidden md:flex items-center space-x-8 text-sm md:text-base font-medium">
             <NuxtLink to="/our-team" class="text-gray-200 hover:text-white transition-colors">Team</NuxtLink>
             <NuxtLink to="/jobs" class="text-gray-200 hover:text-white transition-colors">Jobs at Lyra Social Group</NuxtLink>
@@ -28,9 +28,9 @@
                 <NuxtLink to="/maid-monday" class="block px-4 py-2.5 text-sm text-gray-200 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
                   Overview
                 </NuxtLink>
-                <NuxtLink to="https://discord.gg/tpFPhnJhhf" target="_blank" class="block px-4 py-2.5 text-sm font-semibold text-pink-400 hover:text-white hover:bg-[#A033ED]/20 transition-colors">
-                  Join Discord 🚀
-                </NuxtLink>
+                <a href="https://discord.gg/3dSeCq47nc" target="_blank" rel="noopener noreferrer" aria-label="Join the Lyra Social Group Discord community (opens in a new tab)" class="block px-4 py-2.5 text-sm font-semibold text-pink-400 hover:text-white hover:bg-[#A033ED]/20 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A033ED] focus-visible:ring-inset">
+                  Join Discord
+                </a>
               </div>
             </div>
 
@@ -103,6 +103,17 @@
 
             <a href="https://legal.lyrasocialgroup.tech" target="_blank" class="text-gray-200 hover:text-white transition-colors">TOS</a>
           </nav>
+
+          <a
+            href="https://discord.gg/3dSeCq47nc"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Join the Lyra Social Group Discord community (opens in a new tab)"
+            class="text-sm font-semibold text-gray-200 hover:text-white transition-colors whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#521369] rounded-md px-1 py-1"
+          >
+            <span class="sm:hidden">Discord</span>
+            <span class="hidden sm:inline">Join Discord</span>
+          </a>
 
           <!-- Authentication Profile / Login Action -->
           <div class="flex items-center">
@@ -186,6 +197,7 @@
           <div class="flex flex-col space-y-3">
             <span class="text-xs font-semibold uppercase tracking-wider text-purple-400">Connect With Us</span>
             <div class="flex flex-col space-y-2 text-sm">
+              <a href="https://discord.gg/3dSeCq47nc" target="_blank" rel="noopener noreferrer" aria-label="Join the Lyra Social Group Discord community (opens in a new tab)" class="text-gray-300 hover:text-[#A033ED] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A033ED] rounded-sm">Discord</a>
               <a href="https://www.youtube.com/@LyraSocialGroup" target="_blank" class="text-gray-300 hover:text-[#A033ED] transition-colors">YouTube</a>
               <a href="https://www.instagram.com/lyrasocialgroup" target="_blank" class="text-gray-300 hover:text-[#A033ED] transition-colors">Instagram</a>
               <a href="https://x.com/lyrasocialgroup" target="_blank" class="text-gray-300 hover:text-[#A033ED] transition-colors">X (Twitter)</a>

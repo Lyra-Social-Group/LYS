@@ -45,6 +45,32 @@ const toggleFaq = (index) => {
       <p class="text-[#A033ED] font-medium tracking-wide uppercase text-sm">Join the movement now!</p>
     </section>
 
+    <!-- Discord Community + Live Activity -->
+    <section aria-labelledby="discord-community-heading" class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div class="space-y-5 text-center lg:text-left">
+          <h2 id="discord-community-heading" class="text-3xl font-extrabold text-white tracking-tight">
+            Hang out with us on Discord
+          </h2>
+          <p class="text-gray-300 text-lg leading-relaxed">
+            The Lyra Social Group Discord is our community hub for VRChat hangouts, creator chat, events, and updates. Join in, see who is online, and help us build the space from the ground up.
+          </p>
+          <div>
+            <a
+              href="https://discord.gg/3dSeCq47nc"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Join the Lyra Social Group Discord community (opens in a new tab)"
+              class="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-[#A033ED] hover:bg-[#8e2cd4] text-white font-semibold shadow-lg shadow-[#A033ED]/30 transition-all transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0d12]"
+            >
+              Join Discord
+            </a>
+          </div>
+        </div>
+        <DiscordInviteCard />
+      </div>
+    </section>
+
     <!-- FAQ Section -->
     <section id="faq" class="max-w-4xl mx-auto px-4 space-y-8">
       <h2 class="text-3xl font-extrabold text-center text-white">Frequently Asked Questions</h2>
@@ -79,11 +105,13 @@ const toggleFaq = (index) => {
             </p>
             <div>
               <a 
-                href="https://discord.gg/qG5Fz2PaVb" 
-                target="_blank" 
-                class="inline-block px-4 py-2 rounded-lg bg-[#A033ED] hover:bg-[#8e2cd4] text-white text-xs font-semibold shadow transition-all"
+                href="https://discord.gg/3dSeCq47nc" 
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Join the Lyra Social Group Discord community (opens in a new tab)"
+                class="inline-block px-4 py-2 rounded-lg bg-[#A033ED] hover:bg-[#8e2cd4] text-white text-xs font-semibold shadow transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#13131a]"
               >
-                discord
+                Join Discord
               </a>
             </div>
           </div>
