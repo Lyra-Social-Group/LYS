@@ -164,12 +164,13 @@ const { data: photos } = await useFetch('/api/drive-photos')
       <!-- Discord Call to Action -->
       <div class="text-center pt-2">
         <a 
-          href="https://discord.gg/tpFPhnJhhf" 
+          href="https://discord.gg/3dSeCq47nc" 
           target="_blank" 
           rel="noopener noreferrer"
-          class="inline-block w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5"
+          aria-label="Join the Lyra Social Group Discord community (opens in a new tab)"
+          class="inline-block w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
-          Join Our Discord Server 🚀
+          Join Our Discord Server
         </a>
       </div>
 
