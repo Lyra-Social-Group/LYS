@@ -1,19 +1,20 @@
 <template>
-  <div class="min-h-screen flex flex-col justify-between text-gray-100 bg-[#0d0d12]">
+  <div class="min-h-screen flex flex-col justify-between overflow-x-clip text-gray-100 bg-[#0d0d12]">
     <!-- Header -->
-    <header class="border-b border-[#A033ED]/40 bg-[#521369]/90 backdrop-blur-md sticky top-0 z-50 shadow-lg">
-      <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <header ref="headerEl" class="border-b border-[#A033ED]/40 bg-[#521369]/90 backdrop-blur-md sticky top-0 z-50 shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
         <!-- Logo / Brand Name -->
-        <NuxtLink to="/" class="flex items-center space-x-3 group">
-          <img src="/logo.png" alt="LSG Logo" class="w-9 h-9 object-contain group-hover:scale-105 transition-transform" />
-          <span class="font-bold tracking-wide text-xl text-white">Lyra Social Group</span>
+        <NuxtLink to="/" class="flex items-center space-x-3 group min-w-0 min-h-[44px]">
+          <img src="/logo.png" alt="LSG Logo" class="w-9 h-9 flex-shrink-0 object-contain group-hover:scale-105 transition-transform" />
+          <span class="font-bold tracking-wide text-lg sm:text-xl text-white truncate">Lyra Social Group</span>
         </NuxtLink>
 
         <!-- Navigation Links -->
-        <div class="flex items-center space-x-3 sm:space-x-6 md:space-x-8">
-          <nav class="hidden md:flex items-center space-x-8 text-sm md:text-base font-medium">
+        <div class="flex items-center flex-shrink-0 space-x-3 xl:space-x-8">
+          <nav aria-label="Primary" class="hidden xl:flex items-center space-x-6 2xl:space-x-8 text-base font-medium">
             <NuxtLink to="/our-team" class="text-gray-200 hover:text-white transition-colors">Team</NuxtLink>
-            <NuxtLink to="/jobs" class="text-gray-200 hover:text-white transition-colors">Jobs at Lyra Social Group</NuxtLink>
+            <NuxtLink to="/creators" class="text-gray-200 hover:text-white transition-colors">Creators</NuxtLink>
+            <NuxtLink to="/jobs" class="text-gray-200 hover:text-white transition-colors">Jobs<span class="hidden 2xl:inline"> at Lyra Social Group</span></NuxtLink>
             
             <!-- Maid Monday Dropdown -->
             <div class="relative group">
@@ -37,8 +38,8 @@
 
             <NuxtLink
               to="/donate"
-              class="..."
->
+              class="text-gray-200 hover:text-white transition-colors"
+            >
               Donate
             </NuxtLink>
             
@@ -109,14 +110,13 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Join the Lyra Social Group Discord community (opens in a new tab)"
-            class="text-sm font-semibold text-gray-200 hover:text-white transition-colors whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#521369] rounded-md px-1 py-1"
+            class="hidden xl:inline-flex items-center min-h-[44px] text-sm font-semibold text-gray-200 hover:text-white transition-colors whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#521369] rounded-md px-1 py-1"
           >
-            <span class="sm:hidden">Discord</span>
-            <span class="hidden sm:inline">Join Discord</span>
+            Join Discord
           </a>
 
-          <!-- Authentication Profile / Login Action -->
-          <div class="flex items-center">
+          <!-- Authentication Profile / Login Action (desktop; mobile has its own copy in the menu panel) -->
+          <div class="hidden xl:flex items-center">
             <template v-if="user">
               <!-- Logged In Avatar Dropdown -->
               <div class="relative group">
@@ -165,8 +165,80 @@
               </NuxtLink>
             </template>
           </div>
+
+          <!-- Mobile menu toggle -->
+          <button
+            ref="menuButton"
+            type="button"
+            class="xl:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl text-white hover:bg-[#A033ED]/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+            aria-controls="mobile-menu"
+            :aria-expanded="menuOpen ? 'true' : 'false'"
+            :aria-label="menuOpen ? 'Close main menu' : 'Open main menu'"
+            @click="toggleMenu"
+          >
+            <svg v-if="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
         </div>
       </div>
+
+      <!-- Mobile menu panel -->
+      <nav
+        id="mobile-menu"
+        v-show="menuOpen"
+        aria-label="Mobile"
+        @click="onMenuClick"
+        class="xl:hidden absolute inset-x-0 top-full max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-[#A033ED]/40 bg-[#1a0a24] shadow-2xl"
+      >
+        <ul class="max-w-7xl mx-auto px-4 sm:px-6 py-3 text-base font-medium">
+          <li><NuxtLink to="/" class="mobile-link">Home</NuxtLink></li>
+          <li><NuxtLink to="/community" class="mobile-link">Community</NuxtLink></li>
+          <li><NuxtLink to="/our-team" class="mobile-link">Team</NuxtLink></li>
+          <li><NuxtLink to="/creators" class="mobile-link">Creators</NuxtLink></li>
+          <li><NuxtLink to="/jobs" class="mobile-link">Jobs at Lyra Social Group</NuxtLink></li>
+          <li><NuxtLink to="/donate" class="mobile-link">Donate</NuxtLink></li>
+          <li>
+            <NuxtLink to="/maid-monday" class="mobile-link">Maid Monday</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/lyrascuckhq" class="mobile-link">Lyra Cuck HQ</NuxtLink>
+            <ul class="ml-4 border-l border-[#A033ED]/30 pl-2 text-sm">
+              <li><NuxtLink to="/lyrascuckhq/hosting" class="mobile-link">Hosting Services</NuxtLink></li>
+              <li><NuxtLink to="/lyrascuckhq/hosting/beammp" class="mobile-link">Pro Gaming Server (BeamMP)</NuxtLink></li>
+              <li><NuxtLink to="/lyrascuckhq/hosting/ProGamingServer/races/2026" class="mobile-link">Races 2026</NuxtLink></li>
+            </ul>
+          </li>
+          <li><a href="https://legal.lyrasocialgroup.tech" target="_blank" rel="noopener noreferrer" class="mobile-link">TOS<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li>
+            <a
+              href="https://discord.gg/3dSeCq47nc"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Join the Lyra Social Group Discord community (opens in a new tab)"
+              class="mobile-link !text-pink-300 font-semibold"
+            >Join Discord</a>
+          </li>
+
+          <li class="mt-2 pt-3 border-t border-[#A033ED]/30">
+            <template v-if="user">
+              <NuxtLink to="/accounts" class="mobile-link">Dashboard</NuxtLink>
+              <NuxtLink to="/accounts/settings" class="mobile-link">Account Settings</NuxtLink>
+              <button type="button" class="mobile-link w-full text-left !text-red-400 cursor-pointer" @click="handleLogout">Logout</button>
+            </template>
+            <NuxtLink
+              v-else
+              to="/accounts/login"
+              class="flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-xl bg-[#A033ED] hover:bg-[#8e2cd4] text-white font-semibold text-sm transition-all"
+            >
+              Login
+            </NuxtLink>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <!-- Main Page Content -->
@@ -187,6 +259,7 @@
               <NuxtLink to="/" class="text-gray-300 hover:text-[#A033ED] transition-colors">Home</NuxtLink>
               <NuxtLink to="/community" class="text-gray-300 hover:text-[#A033ED] transition-colors">Community</NuxtLink>
               <NuxtLink to="/our-team" class="text-gray-300 hover:text-[#A033ED] transition-colors">Team</NuxtLink>
+              <NuxtLink to="/creators" class="text-gray-300 hover:text-[#A033ED] transition-colors">Creators</NuxtLink>
               <NuxtLink to="/jobs" class="text-gray-300 hover:text-[#A033ED] transition-colors">Jobs at Lyra Social Group</NuxtLink>
               <NuxtLink to="/maid-monday" class="text-gray-300 hover:text-[#A033ED] transition-colors">Maid Monday</NuxtLink>
               <NuxtLink to="/lyrascuckhq" class="text-gray-300 hover:text-[#A033ED] transition-colors">Lyra's Cuck HQ</NuxtLink>
@@ -255,7 +328,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
 // Inject the official Cloudflare Turnstile script globally
 useHead({
@@ -291,8 +364,58 @@ const fetchProfile = async () => {
   }
 }
 
+// --- Mobile menu ---
+const route = useRoute()
+const menuOpen = ref(false)
+const menuButton = ref(null)
+const headerEl = ref(null)
+
+const closeMenu = (returnFocus = false) => {
+  if (!menuOpen.value) return
+  menuOpen.value = false
+  if (returnFocus) menuButton.value?.focus()
+}
+// Close right away when a link inside the menu is tapped (don't wait for slow pages to load)
+const onMenuClick = (event) => {
+  if (event.target instanceof Element && event.target.closest('a')) closeMenu()
+}
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
+}
+
+// Close when navigating to a new page
+watch(() => route.fullPath, () => closeMenu())
+
+// Keep the page from scrolling behind an open menu
+watch(menuOpen, (open) => {
+  if (import.meta.client) document.body.style.overflow = open ? 'hidden' : ''
+})
+
+const onKeydown = (event) => {
+  if (event.key === 'Escape') closeMenu(true)
+}
+const onDocumentClick = (event) => {
+  // composedPath() still works when the click target (e.g. the toggle icon) was swapped out by Vue
+  if (menuOpen.value && headerEl.value && !event.composedPath().includes(headerEl.value)) closeMenu()
+}
+// Menu is hidden by CSS at the desktop breakpoint, so close it to restore scrolling
+const desktopQuery = import.meta.client ? window.matchMedia('(min-width: 1280px)') : null
+const onBreakpoint = (event) => {
+  if (event.matches) closeMenu()
+}
+
 onMounted(() => {
   fetchProfile()
+  window.addEventListener('keydown', onKeydown)
+  document.addEventListener('click', onDocumentClick)
+  desktopQuery?.addEventListener('change', onBreakpoint)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeydown)
+  document.removeEventListener('click', onDocumentClick)
+  desktopQuery?.removeEventListener('change', onBreakpoint)
+  if (import.meta.client) document.body.style.overflow = ''
 })
 
 const userAvatar = computed(() => {
@@ -323,3 +446,25 @@ const scrollToTop = () => {
   })
 }
 </script>
+
+<style scoped>
+.mobile-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  color: rgb(229 231 235);
+  transition: background-color 0.15s, color 0.15s;
+}
+.mobile-link:hover,
+.mobile-link:focus-visible {
+  background-color: rgb(160 51 237 / 0.2);
+  color: #fff;
+  outline: none;
+}
+.mobile-link.router-link-exact-active {
+  color: #fff;
+  background-color: rgb(160 51 237 / 0.3);
+}
+</style>
